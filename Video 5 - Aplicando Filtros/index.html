@@ -47,9 +47,9 @@
         angular.module('listaTelefonica').controller('listaTelefonicaCtrl', function ($scope) {
             $scope.app = "Lista Telefonica";
             $scope.contatos = [
-                { nome: "Edvaldo", telefone: "9989898989", operadora: { nome: "Tim", codigo: "41", categoria: "Celular" }, cor: "blue" },
-                { nome: "Luan", telefone: "4578946158794", operadora: { nome: "Vivo", codigo: "15", categoria: "Celular" }, cor: "red" },
-                { nome: "Santana", telefone: "7849765151447", operadora: { nome: "Embratel", codigo: "21", categoria: "Fixo" }, cor: "purple" },
+                { nome: "Edvaldo", telefone: "9989898989", cor: "blue" },
+                { nome: "Luan", telefone: "4578946158794", cor: "red" },
+                { nome: "Santana", telefone: "7849765151447", cor: "purple" },
             ];
             $scope.operadoras = [
                 { nome: "Oi", codigo: "14", categoria: "Celular" },
@@ -98,13 +98,13 @@
                 ng-repeat="contato in contatos">
                 <td><input type="checkbox" ng-model="contato.selecionado" /></td>
                 <td>
-                    {{contato.nome | uppercase}}
+                    {{contato.nome}}
                 </td>
                 <td>
                     {{contato.telefone}}
                 </td>
                 <td>
-                    {{contato.operadora.nome | lowercase}}
+                    {{contato.operadora.nome}}
                 </td>
                 <td>
                     <div style="width: 20px; height: 20px;" ng-style="{'background-color': contato.cor}"></div>
@@ -124,7 +124,7 @@
             </select>
         </form>
 
-        <div ng-messages="contatoForm.nome.$error" class="alert alert-danger">
+        <div ng-messages="contatoForm.nome.$error"  class="alert alert-danger">
             <div ng-message="required">
                 Por Favor, preencha o campo de nome!
             </div>
@@ -132,16 +132,17 @@
                 O campo nome deve ter no minimo 5 caracteres.
             </div>
         </div>
-        <div ng-show="contatoForm.telefone.$error.required && contatoForm.telefone.$dirty" class="alert alert-danger">
-            Por Favor, preencha o campo de telefone!
-        </div>
-        <div ng-show="contatoForm.telefone.$error.pattern" class="alert alert-danger">
-            Por Favor, preencha o campo de telefone no formato correto, ex: 4499999-9999!
-        </div>
-        <div ng-show="contatoForm.operadora.$invalid && contatoForm.operadora.$dirty" class="alert alert-danger">
-            Por Favor, Selecione uma operadora!
-        </div>
-
+            <div ng-show="contatoForm.telefone.$error.required && contatoForm.telefone.$dirty"
+                class="alert alert-danger">
+                Por Favor, preencha o campo de telefone!
+            </div>
+            <div ng-show="contatoForm.telefone.$error.pattern" class="alert alert-danger">
+                Por Favor, preencha o campo de telefone no formato correto, ex: 4499999-9999!
+            </div>
+            <div ng-show="contatoForm.operadora.$invalid && contatoForm.operadora.$dirty" class="alert alert-danger">
+                Por Favor, Selecione uma operadora!
+            </div>
+        
         <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)"
             ng-disabled="contatoForm.$invalid">Adicionar
             Contato</button>
